@@ -1,5 +1,18 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
 /.vs/InterviewPrep/v16/Server/sqlite3/db.lock
+.vs/
+UnitTests/obj/project.assets.json
+UnitTests/obj/UnitTests.csproj.nuget.g.props
+UnitTests/obj/UnitTests.csproj.nuget.dgspec.json
+UnitTests/obj/UnitTests.csproj.nuget.cache
+UnitTests/obj/Debug/netcoreapp3.0/UnitTests.csprojAssemblyReference.cache
+UnitTests/obj/Debug/netcoreapp3.0/UnitTests.assets.cache
+Console/obj/project.assets.json
+Console/obj/Debug/netcoreapp3.0/Console.csprojAssemblyReference.cache
+Console/obj/Debug/netcoreapp3.0/Console.assets.cache
+Console/obj/Console.csproj.nuget.g.props
+Console/obj/Console.csproj.nuget.dgspec.json
+Console/obj/Console.csproj.nuget.cache
