@@ -70,24 +70,52 @@
 
 ## 12/17/2019 10:28:32 PM
 
-| Name |Value |
-|  --- | --- |
-| My average time | 0.046 |
+| Name               | Value  |
+| ------------------ | ------ |
+| My average time    | 0.046  |
 | Their average time | 0.0184 |
-
 
 ## 12/17/2019 10:29:44 PM
 
-| Name |Value |
-|  --- | --- |
-| My average time | 0.0352 |
+| Name               | Value  |
+| ------------------ | ------ |
+| My average time    | 0.0352 |
 | Their average time | 0.0228 |
-
 
 ## 12/17/2019 10:36:55 PM
 
-| Name |Value |
-|  --- | --- |
-| My average time | 0.0408 |
+| Name               | Value  |
+| ------------------ | ------ |
+| My average time    | 0.0408 |
 | Their average time | 0.0377 |
 
+## 12/17/2019 10:38:27 PM
+
+| Name               | Value  |
+| ------------------ | ------ |
+| My average time    | 0.0283 |
+| Their average time | 0.0178 |
+
+## 12/17/2019 10:55:30 PM
+
+| Name | Value |
+| ---- | ----- |
+
+
+## 12/17/2019 10:57:48 PM
+
+| Name   | Value  |
+| ------ | ------ |
+| 0.0365 | 0.0184 |
+
+## 12/17/2019 10:59:38 PM
+
+| Name   | Value  |
+| ------ | ------ |
+| 0.0363 | 0.0231 |
+
+## 12/17/2019 11:01:26 PM
+
+| My Average Time | Their Average Time |
+| --------------- | ------------------ |
+| 0.0231          | 0.016              |

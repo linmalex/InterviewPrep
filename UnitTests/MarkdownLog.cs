@@ -21,7 +21,7 @@ namespace UnitTests
                 new FileInfo(Path.Combine(logRootFolder,"StringReverserTestLog.md"))
             };
         }
-        public List<string> LogAsMarkdownTable(TimeSpan myaverage, TimeSpan theirAverage)
+        public List<string> LogAsMarkdownTable(KeyValuePair<string,string>[] values)
         {
 
             List<string> markdownLines = new List<string>()
@@ -30,8 +30,10 @@ namespace UnitTests
                 string.Format("## {0}", DateTime.Now),
                 ""
             };
-            markdownLines.AddRange(MarkdownTableHeader(new string[] { "Name", "Value" }));
-            AddMarkdownTableData(markdownLines, myaverage, theirAverage);
+
+            var dataKeys = values.Select(v => v.Key).ToArray();
+            MarkdownTableHeader(dataKeys, markdownLines);
+            AddMarkdownTableData(values.Select(v => v.Value).ToArray(), markdownLines);
             markdownLines.Add("");
             FileInfo logfile = TestLogs.Where(f => f.Name == "StringReverserTestLog.md").FirstOrDefault();
             using StreamWriter fileWriter = logfile.AppendText();
@@ -42,12 +44,7 @@ namespace UnitTests
             return markdownLines;
 
         }
-        private void AddMarkdownTableData(List<string> markdownLines, TimeSpan myAverage, TimeSpan theirAverage)
-        {
-            markdownLines.Add(string.Format("| My average time | {0} |", Math.Round(myAverage.TotalMilliseconds, 4)));
-            markdownLines.Add(string.Format("| Their average time | {0} |", Math.Round(theirAverage.TotalMilliseconds, 4)));
-        }
-        public string[] MarkdownTableHeader(string[] headerValues)
+        public void MarkdownTableHeader(string[] headerValues, List<string> markdownLines)
         {
             StringBuilder titleRowBuilder = new StringBuilder("| ");
             StringBuilder dividerRowBuilder = new StringBuilder("| ");
@@ -56,7 +53,18 @@ namespace UnitTests
                 titleRowBuilder.Append(string.Format("{0} |", header));
                 dividerRowBuilder.Append(" --- |");
             }
-            return new string[] { titleRowBuilder.ToString(), dividerRowBuilder.ToString() };
+            markdownLines.Add(titleRowBuilder.ToString());
+            markdownLines.Add(dividerRowBuilder.ToString());
         }
+        private void AddMarkdownTableData(string[] dataValues, List<string> markdownLines)
+        {
+            StringBuilder sb = new StringBuilder("| ");
+            foreach (string item in dataValues)
+            {
+                sb.Append(string.Format(" {0} |", item));
+            }
+            markdownLines.Add(sb.ToString());
+        }
+
     }
 }

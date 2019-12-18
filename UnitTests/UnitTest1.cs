@@ -45,8 +45,9 @@ namespace UnitTests
             TimeSpan myaverage = myTimeTotal / runCount;
             TimeSpan theirAverage = theirTimeTotal / runCount;
             MarkdownLog log = new MarkdownLog();
-
-            log.LogAsMarkdownTable(myaverage, theirAverage);
+            KeyValuePair<string, string> mine = new KeyValuePair<string, string>("My Average Time", Math.Round(myaverage.TotalMilliseconds, 4).ToString());
+            KeyValuePair<string, string> theirs = new KeyValuePair<string, string>("Their Average Time", Math.Round(theirAverage.TotalMilliseconds, 4).ToString());
+            log.LogAsMarkdownTable(new KeyValuePair<string, string>[] { mine, theirs });
         }
     }
 }
