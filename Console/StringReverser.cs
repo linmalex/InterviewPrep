@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Console
+namespace ConsoleApp
 {
     public class StringReverser
     {
