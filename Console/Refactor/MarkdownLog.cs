@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace UnitTests
+namespace ConsoleApp
 {
     public class MarkdownLog
     {
@@ -21,7 +21,7 @@ namespace UnitTests
                 new FileInfo(Path.Combine(logRootFolder,"StringReverserTestLog.md"))
             };
         }
-        public List<string> LogAsMarkdownTable(KeyValuePair<string, string>[] values)
+        public List<string> LogAsMarkdownTable(KeyValuePair<string,string>[] values)
         {
 
             List<string> markdownLines = new List<string>()
@@ -46,11 +46,15 @@ namespace UnitTests
         }
         public void MarkdownTableHeader(string[] headerValues, List<string> markdownLines)
         {
-            StringBuilder titleRowBuilder = new StringBuilder("| ");
-            StringBuilder dividerRowBuilder = new StringBuilder("| ");
+            if (markdownLines == null)
+            {
+                markdownLines = new List<string>();
+            }
+            StringBuilder titleRowBuilder = new StringBuilder("|");
+            StringBuilder dividerRowBuilder = new StringBuilder("|");
             foreach (var header in headerValues)
             {
-                titleRowBuilder.Append(string.Format("{0} |", header));
+                titleRowBuilder.Append(string.Format(" {0} |", header));
                 dividerRowBuilder.Append(" --- |");
             }
             markdownLines.Add(titleRowBuilder.ToString());
@@ -65,6 +69,5 @@ namespace UnitTests
             }
             markdownLines.Add(sb.ToString());
         }
-
     }
 }
