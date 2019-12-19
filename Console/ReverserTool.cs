@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ConsoleApp
 {
-    public class StringReverser
+    public class ReverserTool
     {
         public string StringToReverse { get; set; }
         public string ReversedString { get; set; }
-        public StringReverser(string str)
+        public ReverserTool(string str)
         {
             StringToReverse = str;
         }
@@ -25,30 +25,29 @@ namespace ConsoleApp
             string reversedstring = new string(charArray);
             return reversedstring;
         }
-        public string MyStringReverser()
+        public static string MyStringReverser(string str)
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < StringToReverse.Length; i++)
+            for (int i = 0; i < str.Length; i++)
             {
-
-                int currentPosition = StringToReverse.Length - i - 1;
-                sb.Append(StringToReverse[currentPosition]);
+                int currentPosition = str.Length - i - 1;
+                sb.Append(str[currentPosition]);
             }
             return sb.ToString();
         }
-        public void StringReverserStopWatch(StringReverser sr, string methodName, out TimeSpan time)
+        public void StringReverserStopWatch(ReverserTool sr, string methodName, out TimeSpan time)
         {
             var watch = new Stopwatch();
             watch.Reset();
             watch.Start();
-            typeof(StringReverser).GetMethod(methodName).Invoke(sr, null);
+            typeof(ReverserTool).GetMethod(methodName).Invoke(sr, null);
             watch.Stop();
             time = watch.Elapsed;
         }
         public void StringReverseComparisons()
         {
             var stringToReverse = "sdlkfja;osidfulkjer";
-            var sr = new StringReverser(stringToReverse);
+            var sr = new ReverserTool(stringToReverse);
 
             int runCount = 10;
 
