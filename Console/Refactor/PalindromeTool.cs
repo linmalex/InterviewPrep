@@ -3,7 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using Console;
+using Toolbox;
+
 
 namespace ConsoleApp
 {
@@ -19,8 +20,8 @@ namespace ConsoleApp
             IEnumerable<string> trueItems = jObj["true"].Children().Select(c => c.ToString());
             IEnumerable<string> falseItems = jObj["false"].Children().Select(c => c.ToString());
 
-            var myAverage = Toolbox.GetAverageTime(trueItems, MyPalindromeChecker).avg;
-            var theirAverage = Toolbox.GetAverageTime(trueItems, TheirPalindromeChecker).avg;
+            var myAverage = TimeTool.GetAverageTime(trueItems, MyPalindromeChecker).avg;
+            var theirAverage = TimeTool.GetAverageTime(trueItems, TheirPalindromeChecker).avg;
         }
         public static bool MyPalindromeChecker(string str)
         {

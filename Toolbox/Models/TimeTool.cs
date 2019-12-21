@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace Console
+namespace Toolbox
 {
-    public class Toolbox
+    public class TimeTool
     {
         public static (TimeSpan total, TimeSpan avg) GetAverageTime(IEnumerable<string> items, Func<string, bool> method)
         {
