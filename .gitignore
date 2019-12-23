@@ -32,3 +32,10 @@ Console/obj/Debug/netcoreapp3.0/Console.csproj.FileListAbsolute.txt
 Console/bin/Debug/netcoreapp3.0/Console.runtimeconfig.dev.json
 Console/bin/Debug/netcoreapp3.0/Console.pdb
 Console/bin/Debug/netcoreapp3.0/Console.dll
+Console/bin/
+UnitTests/bin/
+UnitTests/obj/
+*.cache
+*.dll
+Toolbox/obj/
+Toolbox/bin/
