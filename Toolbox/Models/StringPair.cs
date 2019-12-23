@@ -1,58 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Toolbox
 {
-    public abstract class TestPair<T>
+    public interface ITestPair<T, TKey>
     {
-        public T Input { get; set; }
-        public T ExpectedOutput { get; set; }
+        public TKey Input { get; set; }
+        public TKey ExpectedOutput { get; set; }
 
-        public TestPair()
-        {
-
-        }
-
+        public IEnumerable<T> ParseFromStringPair(IEnumerable<StringPair> input);
 
     }
-    public class StringPair
+
+    public class StringPair : ITestPair<StringPair, string>
     {
         public string Input { get; set; }
         public string ExpectedOutput { get; set; }
-        #region constructors
-        public StringPair(string input, char delimiter)
-        {
-            string[] split = input.Split(delimiter);
-            if (split.Length > 1)
-            {
-                Input = split[0];
-                ExpectedOutput = split[1];
-            }
-        }
-        #endregion
 
-        #region methods
-        public static List<StringPair> ParseSet(string[] input, char delimiter)
+        public IEnumerable<StringPair> ParseFromStringPair(IEnumerable<StringPair> input)
         {
-            List<StringPair> pairs = new List<StringPair>();
-            foreach (var item in input)
-            {
-                pairs.Add(new StringPair(item, delimiter));
-            }
-            return pairs;
+            throw new NotImplementedException();
         }
 
-        //public override List<StringPair> ParseSet(string[] set, char delimiter)
-        //{
-        //    List<StringPair> pairs = new List<StringPair>();
-        //    foreach (var item in set)
-        //    {
-        //        pairs.Add(new StringPair(item, delimiter));
-        //    }
-        //    return pairs;
-        //}
-
-        #endregion
+        public StringPair(string inputLine, char delim): this()
+        {
+            string[] splitInput = inputLine.Split(delim);
+            if (splitInput.Length == 2)
+            {
+                Input = splitInput[0];
+                ExpectedOutput = splitInput[1];
+            }
+        }
+        public StringPair()
+        {
+        }
     }
 }

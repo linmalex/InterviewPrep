@@ -17,7 +17,6 @@ namespace UnitTests
 
     public class Tests
     {
-        public List<StringPair> PairsForTesting { get; set; }
         public List<(string name, FileInfo fileInfo)> TestFiles { get; set; }
         public Tests()
         {
@@ -42,15 +41,16 @@ namespace UnitTests
         public void StringPairReverseTest()
         {
             ///-----------------------Verify file exists
-            var testFileName = "stringsToReverse";
+            string testFileName = "stringsToReverse";
             Assert.True(TestFiles.Select(f => f.name).Contains(testFileName));
             
             ///-----------------------
             FileInfo testFileInfo = TestFiles.Where(fi => fi.name == testFileName).FirstOrDefault().fileInfo; //get appropriate file info
-            var stringPairs = File.ReadAllLines(testFileInfo.FullName); //read file as array of strings
-            var parsedStringPairs = StringPair.ParseSet(stringPairs, ',');
-            parsedStringPairs.ForEach(p => Assert.True(p.Input != p.ExpectedOutput)); //verify that the original input doesn't match the expected output
-            parsedStringPairs.ForEach(p => Assert.True(p.Input.ReverseString() == p.ExpectedOutput)); //verify that the reversed input does match the expected output
+            List<StringPair> stringPairs = File.ReadAllLines(testFileInfo.FullName).Select(x=>new StringPair(x,',')).ToList();
+
+
+            stringPairs.ForEach(p => Assert.True(p.Input != p.ExpectedOutput)); //verify that the original input doesn't match the expected output
+            stringPairs.ForEach(p => Assert.True(p.Input.ReverseString() == p.ExpectedOutput)); //verify that the reversed input does match the expected output
         }
         [Test]
         public void IsPalindromeTest()
