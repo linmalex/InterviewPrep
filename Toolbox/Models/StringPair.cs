@@ -15,10 +15,11 @@ namespace Toolbox
         }
 
 
-        public abstract List<TestPair> ParseSet(T[] set, char delimiter);
     }
-    public class StringPair : TestPair<string>
+    public class StringPair
     {
+        public string Input { get; set; }
+        public string ExpectedOutput { get; set; }
         #region constructors
         public StringPair(string input, char delimiter)
         {
@@ -32,25 +33,25 @@ namespace Toolbox
         #endregion
 
         #region methods
-        //public new List<StringPair> ParseSet(string[] input, char delimiter)
-        //{
-        //    List<StringPair> pairs = new List<StringPair>();
-        //    foreach (var item in input)
-        //    {
-        //        pairs.Add(new StringPair(item, delimiter));
-        //    }
-        //    return pairs;
-        //}
-
-        public override List<StringPair> ParseSet(string[] set, char delimiter)
+        public static List<StringPair> ParseSet(string[] input, char delimiter)
         {
             List<StringPair> pairs = new List<StringPair>();
-            foreach (var item in set)
+            foreach (var item in input)
             {
                 pairs.Add(new StringPair(item, delimiter));
             }
             return pairs;
         }
+
+        //public override List<StringPair> ParseSet(string[] set, char delimiter)
+        //{
+        //    List<StringPair> pairs = new List<StringPair>();
+        //    foreach (var item in set)
+        //    {
+        //        pairs.Add(new StringPair(item, delimiter));
+        //    }
+        //    return pairs;
+        //}
 
         #endregion
     }

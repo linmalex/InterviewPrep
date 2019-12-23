@@ -48,7 +48,7 @@ namespace UnitTests
             ///-----------------------
             FileInfo testFileInfo = TestFiles.Where(fi => fi.name == testFileName).FirstOrDefault().fileInfo; //get appropriate file info
             var stringPairs = File.ReadAllLines(testFileInfo.FullName); //read file as array of strings
-            var parsedStringPairs = StringPair.ParseStringSetToTestPairs(stringPairs, ',');
+            var parsedStringPairs = StringPair.ParseSet(stringPairs, ',');
             parsedStringPairs.ForEach(p => Assert.True(p.Input != p.ExpectedOutput)); //verify that the original input doesn't match the expected output
             parsedStringPairs.ForEach(p => Assert.True(p.Input.ReverseString() == p.ExpectedOutput)); //verify that the reversed input does match the expected output
         }
