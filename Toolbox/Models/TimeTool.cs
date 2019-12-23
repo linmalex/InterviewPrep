@@ -8,7 +8,7 @@ namespace Toolbox
 {
     public class TimeTool
     {
-        public static (TimeSpan total, TimeSpan avg) GetAverageTime(IEnumerable<string> items, Func<string, bool> method)
+        public static (TimeSpan total, TimeSpan avg) GetTimeMetrics(IEnumerable<string> items, Func<string, bool> method)
         {
             TimeSpan totalTime = new TimeSpan();
             foreach (var item in items)

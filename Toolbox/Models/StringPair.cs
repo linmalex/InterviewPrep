@@ -4,45 +4,54 @@ using System.Text;
 
 namespace Toolbox
 {
-    public class StringPair
+    public abstract class TestPair<T>
     {
-        public string Input { get; set; }
-        public string Output { get; set; }
+        public T Input { get; set; }
+        public T ExpectedOutput { get; set; }
 
-        public StringPair()
+        public TestPair()
         {
 
         }
 
+
+        public abstract List<TestPair> ParseSet(T[] set, char delimiter);
+    }
+    public class StringPair : TestPair<string>
+    {
+        #region constructors
         public StringPair(string input, char delimiter)
         {
             string[] split = input.Split(delimiter);
             if (split.Length > 1)
             {
                 Input = split[0];
-                Output = split[1];
+                ExpectedOutput = split[1];
             }
         }
-        public static List<StringPair> ParseStringsToTestPairs(string[] input, char delimiter)
+        #endregion
+
+        #region methods
+        //public new List<StringPair> ParseSet(string[] input, char delimiter)
+        //{
+        //    List<StringPair> pairs = new List<StringPair>();
+        //    foreach (var item in input)
+        //    {
+        //        pairs.Add(new StringPair(item, delimiter));
+        //    }
+        //    return pairs;
+        //}
+
+        public override List<StringPair> ParseSet(string[] set, char delimiter)
         {
             List<StringPair> pairs = new List<StringPair>();
-            foreach (var item in input)
+            foreach (var item in set)
             {
                 pairs.Add(new StringPair(item, delimiter));
             }
             return pairs;
         }
 
-        public string ReverseInputString()
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < Input.Length; i++)
-            {
-                int currentPosition = Input.Length - i - 1;
-                sb.Append(Input[currentPosition]);
-            }
-            return sb.ToString();
-        }
+        #endregion
     }
-    //todo add test to validate Csv test files and make sure they have only one comma
 }

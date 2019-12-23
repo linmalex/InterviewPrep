@@ -10,85 +10,65 @@ using System.Linq;
 using System.Text;
 using Toolbox;
 using System.Collections.Specialized;
+using Toolbox.Models;
 
 namespace UnitTests
 {
 
     public class Tests
     {
-        public DirectoryInfo TestFilesDirectory { get; set; }
         public List<StringPair> PairsForTesting { get; set; }
-        public FileInfo[] Files { get; set; }
-
-        public List<string> FileNames { get; set; }
+        public List<(string name, FileInfo fileInfo)> TestFiles { get; set; }
         public Tests()
         {
             var slnDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
-            TestFilesDirectory = new DirectoryInfo(Path.Combine(slnDir.FullName, "Toolbox\\StringFiles"));
-            FileInfo[] testFiles1 = TestFilesDirectory.GetFiles("*", SearchOption.AllDirectories);
-            Files = TestFilesDirectory.GetFiles();
-            FileNames = new List<string>();
-            foreach (var item in Files)
+            
+            var testFilesDir = new DirectoryInfo(Path.Combine(slnDir.FullName, "Toolbox\\StringFiles"));
+
+            TestFiles = new List<(string name, FileInfo fileInfo)>();
+            
+            foreach (var item in testFilesDir.GetFiles())
             {
-                 FileNames.Add(Path.GetFileNameWithoutExtension(item.FullName));
+                (string fileName, FileInfo fileInfo) fileX = (Path.GetFileNameWithoutExtension(item.FullName), item);
+                TestFiles.Add(fileX);
             }
         }
-        //public void SetPairsForTesting(string testFileName)
-        //{
-        //    string stringsFile = Path.Combine(TestFilesDirectory, "stringsToReverse.csv");
-        //    FileInfo file = new FileInfo(stringsFile);
-        //}
         [SetUp]
         public void Setup()
         {
-            //TestFilesExist(CurrentTestFileName);
         }
+
         [Test]
         public void StringPairReverseTest()
         {
-            var CurrentTestFileName = "stringsToReverse.csv";
+            ///-----------------------Verify file exists
+            var testFileName = "stringsToReverse";
+            Assert.True(TestFiles.Select(f => f.name).Contains(testFileName));
+            
             ///-----------------------
-
-            string stringsFile = Path.Combine(TestFilesDirectory.FullName, CurrentTestFileName);
-            string[] stringPairs = File.ReadAllLines(stringsFile);
-            List<StringPair> pairs = StringPair.ParseStringsToTestPairs(stringPairs, ',');
-            foreach (var item in pairs)
-            {
-                Assert.True(item.ReverseInputString() == item.Output);
-            }
+            FileInfo testFileInfo = TestFiles.Where(fi => fi.name == testFileName).FirstOrDefault().fileInfo; //get appropriate file info
+            var stringPairs = File.ReadAllLines(testFileInfo.FullName); //read file as array of strings
+            var parsedStringPairs = StringPair.ParseStringSetToTestPairs(stringPairs, ',');
+            parsedStringPairs.ForEach(p => Assert.True(p.Input != p.ExpectedOutput)); //verify that the original input doesn't match the expected output
+            parsedStringPairs.ForEach(p => Assert.True(p.Input.ReverseString() == p.ExpectedOutput)); //verify that the reversed input does match the expected output
         }
         [Test]
-        public void PalindromeTest()
+        public void IsPalindromeTest()
         {
-            var palindromesFile = Path.Combine(TestFilesDirectory.FullName, "palindromes.json");
+            ///-----------------------Verify file exists
+            
+            var testFileName = "palindromes";
+            Assert.True(TestFiles.Select(f => f.name).Contains(testFileName));
 
-            JObject jObj = JObject.Parse(File.ReadAllText(palindromesFile));
-            IEnumerable<bool> trueItems = jObj["true"].Children().Select(c => PalindromeTool.MyPalindromeChecker(c.ToString()));
-            IEnumerable<bool> falseItems = jObj["false"].Children().Select(c => PalindromeTool.MyPalindromeChecker(c.ToString()));
-
-            Assert.False(trueItems.Contains(false));
-            Assert.False(falseItems.Contains(true));
-        }
-        [Test]
-        public void TheirStringPairReverseTest()
-        {
-            var CurrentTestFileName = "stringsToReverse.csv";
-            ///-----------------------
-
-            string stringsFile = Path.Combine(TestFilesDirectory.FullName, CurrentTestFileName);
-            string[] stringPairs = File.ReadAllLines(stringsFile);
-            List<TheirStringPair> pairs = TheirStringPair.ParseStringsToTestPairs(stringPairs, ',');
-            foreach (var item in pairs)
-            {
-                Assert.True(item.ReverseInputString() == item.Output);
-            }
-        }
-
-        public void TestFilesExist(string fileName)
-        {
-            string stringsFile = Path.Combine(TestFilesDirectory.FullName, fileName);
-            FileInfo file = new FileInfo(stringsFile);
-            Assert.True(file.Exists);
+            ///----------------------- parse json file to groups
+            FileInfo testFileInfo = TestFiles.Where(fi => fi.name == testFileName).FirstOrDefault().fileInfo; //get appropriate file info
+            JObject jObj = JObject.Parse(File.ReadAllText(testFileInfo.FullName));
+            List<string> expectedTrueItems = jObj["true"].Children().Select(c => c.ToString()).ToList();
+            List<string> expectedFalseItems = jObj["false"].Children().Select(c=>c.ToString()).ToList();
+            
+            ///-------------------------test
+            expectedFalseItems.ForEach(s => Assert.False(s.IsPalindrome()));
+            expectedTrueItems.ForEach(s => Assert.True(s.IsPalindrome()));
         }
     }
 }
