@@ -4,16 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace ConsoleApp
+namespace Toolbox.Models
 {
-    public class MarkdownLog
+    public class LogTool
     {
         public string RunDate { get; set; }
         public string Header { get; set; }
         public List<FileInfo> TestLogs { get; set; }
         public string[] DataRows { get; set; }
 
-        public MarkdownLog()
+        public LogTool()
         {
             string logRootFolder = @"C:\Users\linma\source\repos\InterviewPrep\UnitTests\Logs";
             TestLogs = new List<FileInfo>()
@@ -21,7 +21,7 @@ namespace ConsoleApp
                 new FileInfo(Path.Combine(logRootFolder,"StringReverserTestLog.md"))
             };
         }
-        public List<string> LogAsMarkdownTable(KeyValuePair<string,string>[] values)
+        public List<string> LogAsMarkdownTable(KeyValuePair<string, string>[] values)
         {
 
             List<string> markdownLines = new List<string>()

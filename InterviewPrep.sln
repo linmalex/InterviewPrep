@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E244619C-920F-48A5-9F24-6E7A090C0F56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolbox", "Toolbox\Toolbox.csproj", "{01EF3B2D-36DD-44B6-B976-446BB544706C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{E244619C-920F-48A5-9F24-6E7A090C0F56}.Release|x64.Build.0 = Release|Any CPU
 		{E244619C-920F-48A5-9F24-6E7A090C0F56}.Release|x86.ActiveCfg = Release|Any CPU
 		{E244619C-920F-48A5-9F24-6E7A090C0F56}.Release|x86.Build.0 = Release|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Debug|x64.Build.0 = Debug|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Debug|x86.Build.0 = Debug|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Release|x64.ActiveCfg = Release|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Release|x64.Build.0 = Release|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Release|x86.ActiveCfg = Release|Any CPU
+		{01EF3B2D-36DD-44B6-B976-446BB544706C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

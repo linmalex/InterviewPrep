@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using ConsoleApp;
 using System.Collections.Generic;
+using Toolbox.Models;
 
 namespace UnitTests
 {
@@ -10,13 +11,12 @@ namespace UnitTests
         public void Setup()
         {
         }
-
         [Test]
         public void MarkdownHeaderTest()
         {
-            var log = new MarkdownLog();
+            var log = new LogTool();
             string[] headers = new string[] { "Name", "Age", "Another One" };
-            string[] headers2 = new string[] { "Name", "Age", "Another One","Adding More","To Keep it interesting" };
+            string[] headers2 = new string[] { "Name", "Age", "Another One", "Adding More", "To Keep it interesting" };
             List<string> markdownLines = new List<string>();
             List<string> markdownLines2 = new List<string>();
             log.MarkdownTableHeader(headers, markdownLines);

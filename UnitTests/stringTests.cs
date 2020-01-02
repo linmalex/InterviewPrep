@@ -8,76 +8,67 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Toolbox;
+using System.Collections.Specialized;
+using Toolbox.Models;
 
 namespace UnitTests
 {
+
     public class Tests
     {
-        public string TestFilesDirectory
-        {
-            get
-            {
-                var solutionDirector = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
-                return Path.Combine(solutionDirector.FullName, "UnitTests\\TestFiles");
-            }
-        }
-
+        public List<(string name, FileInfo fileInfo)> TestFiles { get; set; }
         public Tests()
         {
+            var slnDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
+            
+            var testFilesDir = new DirectoryInfo(Path.Combine(slnDir.FullName, "Toolbox\\StringFiles"));
 
+            TestFiles = new List<(string name, FileInfo fileInfo)>();
+            
+            foreach (var item in testFilesDir.GetFiles())
+            {
+                (string fileName, FileInfo fileInfo) fileX = (Path.GetFileNameWithoutExtension(item.FullName), item);
+                TestFiles.Add(fileX);
+            }
         }
         [SetUp]
         public void Setup()
         {
         }
+
         [Test]
-        public void StringReverseTest()
+        public void StringPairReverseTest()
         {
-            string stringsFile = Path.Combine(TestFilesDirectory, "stringsToReverse.csv");
-            FileInfo file = new FileInfo(stringsFile);
-            Assert.True(file.Exists);
-            var stringPairs = File.ReadAllLines(stringsFile).Select(x => x.Split(','));
-            foreach (string[] pair in stringPairs)
-            {
-                Assert.True(pair[1] == ReverserTool.MyStringReverser(pair[0]));
-            }
+            ///-----------------------Verify file exists
+            string testFileName = "stringsToReverse";
+            Assert.True(TestFiles.Select(f => f.name).Contains(testFileName));
+            
+            ///-----------------------
+            FileInfo testFileInfo = TestFiles.Where(fi => fi.name == testFileName).FirstOrDefault().fileInfo; //get appropriate file info
+            List<StringPair> stringPairs = File.ReadAllLines(testFileInfo.FullName).Select(x=>new StringPair(x,',')).ToList();
+
+
+            stringPairs.ForEach(p => Assert.True(p.Input != p.ExpectedOutput)); //verify that the original input doesn't match the expected output
+            stringPairs.ForEach(p => Assert.True(p.Input.ReverseString() == p.ExpectedOutput)); //verify that the reversed input does match the expected output
         }
-
         [Test]
-        public void PalindromeTest()
+        public void IsPalindromeTest()
         {
-            var palindromesFile = Path.Combine(TestFilesDirectory, "palindromes.json");
+            ///-----------------------Verify file exists
+            
+            var testFileName = "palindromes";
+            Assert.True(TestFiles.Select(f => f.name).Contains(testFileName));
 
-            FileInfo file = new FileInfo(palindromesFile);
-            Assert.True(file.Exists);
-
-            JObject jObj = JObject.Parse(File.ReadAllText(palindromesFile));
-            IEnumerable<bool> trueItems = jObj["true"].Children().Select(c => PalindromeTool.MyPalindromeChecker(c.ToString()));
-            IEnumerable<bool> falseItems = jObj["false"].Children().Select(c => PalindromeTool.MyPalindromeChecker(c.ToString()));
-
-            Assert.False(trueItems.Contains(false));
-            Assert.False(falseItems.Contains(true));
-        }
-
-        [Test]
-        public void SentenceReverseTest()
-        {
-            var sentencesFile = Path.Combine(TestFilesDirectory, "sentences.txt");
-
-            var file = new FileInfo(sentencesFile);
-            Assert.True(file.Exists);
-
-            string[] sentences = File.ReadAllLines(sentencesFile);
-            Assert.True(sentences.Length > 0);
-
-            IEnumerable<string[]> splitSentences = sentences.Select(x => x.Split('|'));
-            IEnumerable<string> sentenceToSplit = splitSentences.Select(x => ReverserTool.MyStringReverser(x[0]));
-            foreach (string[] item in splitSentences)
-            {
-                var reversed = ReverserTool.MyStringReverser(item[0]);
-                var matches = reversed == item[1];
-                Assert.True(ReverserTool.MyStringReverser(item[0]) == item[1]);
-            }
+            ///----------------------- parse json file to groups
+            FileInfo testFileInfo = TestFiles.Where(fi => fi.name == testFileName).FirstOrDefault().fileInfo; //get appropriate file info
+            JObject jObj = JObject.Parse(File.ReadAllText(testFileInfo.FullName));
+            List<string> expectedTrueItems = jObj["true"].Children().Select(c => c.ToString()).ToList();
+            List<string> expectedFalseItems = jObj["false"].Children().Select(c=>c.ToString()).ToList();
+            
+            ///-------------------------test
+            expectedFalseItems.ForEach(s => Assert.False(s.IsPalindrome()));
+            expectedTrueItems.ForEach(s => Assert.True(s.IsPalindrome()));
         }
     }
 }
