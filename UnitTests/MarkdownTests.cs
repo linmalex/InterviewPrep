@@ -2,7 +2,7 @@ using NUnit.Framework;
 using ConsoleApp;
 using System.Collections.Generic;
 
-namespace Tests
+namespace UnitTests
 {
     public class MarkdownTests
     {

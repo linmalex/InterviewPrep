@@ -48,12 +48,36 @@ namespace UnitTests
         {
             var palindromesFile = Path.Combine(TestFilesDirectory, "palindromes.json");
 
+            FileInfo file = new FileInfo(palindromesFile);
+            Assert.True(file.Exists);
+
             JObject jObj = JObject.Parse(File.ReadAllText(palindromesFile));
             IEnumerable<bool> trueItems = jObj["true"].Children().Select(c => PalindromeTool.MyPalindromeChecker(c.ToString()));
             IEnumerable<bool> falseItems = jObj["false"].Children().Select(c => PalindromeTool.MyPalindromeChecker(c.ToString()));
 
             Assert.False(trueItems.Contains(false));
             Assert.False(falseItems.Contains(true));
+        }
+
+        [Test]
+        public void SentenceReverseTest()
+        {
+            var sentencesFile = Path.Combine(TestFilesDirectory, "sentences.txt");
+
+            var file = new FileInfo(sentencesFile);
+            Assert.True(file.Exists);
+
+            string[] sentences = File.ReadAllLines(sentencesFile);
+            Assert.True(sentences.Length > 0);
+
+            IEnumerable<string[]> splitSentences = sentences.Select(x => x.Split('|'));
+            IEnumerable<string> sentenceToSplit = splitSentences.Select(x => ReverserTool.MyStringReverser(x[0]));
+            foreach (string[] item in splitSentences)
+            {
+                var reversed = ReverserTool.MyStringReverser(item[0]);
+                var matches = reversed == item[1];
+                Assert.True(ReverserTool.MyStringReverser(item[0]) == item[1]);
+            }
         }
     }
 }
