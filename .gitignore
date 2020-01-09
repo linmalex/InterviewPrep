@@ -39,3 +39,6 @@ UnitTests/obj/
 *.dll
 Toolbox/obj/
 Toolbox/bin/
+Console/obj/
+ShesCoding/bin/
+ShesCoding/obj/
