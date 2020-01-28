@@ -19,8 +19,8 @@ namespace UnitTests
             string[] headers2 = new string[] { "Name", "Age", "Another One", "Adding More", "To Keep it interesting" };
             List<string> markdownLines = new List<string>();
             List<string> markdownLines2 = new List<string>();
-            log.MarkdownTableHeader(headers, markdownLines);
-            log.MarkdownTableHeader(headers2, markdownLines2);
+            log.ConstructMarkdownTableHeader(headers, markdownLines);
+            log.ConstructMarkdownTableHeader(headers2, markdownLines2);
             Assert.True(markdownLines[0] == "| Name | Age | Another One |");
             Assert.True(markdownLines2[0] == "| Name | Age | Another One | Adding More | To Keep it interesting |");
             Assert.True(markdownLines[1] == "| --- | --- | --- |");

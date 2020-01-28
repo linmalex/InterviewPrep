@@ -1,8 +1,0 @@
-C:\Users\linma\source\repos\InterviewPrep\Toolbox\bin\Debug\netcoreapp3.0\Toolbox.deps.json
-C:\Users\linma\source\repos\InterviewPrep\Toolbox\bin\Debug\netcoreapp3.0\Toolbox.dll
-C:\Users\linma\source\repos\InterviewPrep\Toolbox\bin\Debug\netcoreapp3.0\Toolbox.pdb
-C:\Users\linma\source\repos\InterviewPrep\Toolbox\obj\Debug\netcoreapp3.0\Toolbox.AssemblyInfoInputs.cache
-C:\Users\linma\source\repos\InterviewPrep\Toolbox\obj\Debug\netcoreapp3.0\Toolbox.AssemblyInfo.cs
-C:\Users\linma\source\repos\InterviewPrep\Toolbox\obj\Debug\netcoreapp3.0\Toolbox.dll
-C:\Users\linma\source\repos\InterviewPrep\Toolbox\obj\Debug\netcoreapp3.0\Toolbox.pdb
-C:\Users\linma\source\repos\InterviewPrep\Toolbox\obj\Debug\netcoreapp3.0\Toolbox.csprojAssemblyReference.cache

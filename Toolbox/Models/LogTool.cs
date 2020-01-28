@@ -32,8 +32,8 @@ namespace Toolbox.Models
             };
 
             var dataKeys = values.Select(v => v.Key).ToArray();
-            MarkdownTableHeader(dataKeys, markdownLines);
-            AddMarkdownTableData(values.Select(v => v.Value).ToArray(), markdownLines);
+            ConstructMarkdownTableHeader(dataKeys, markdownLines);
+            ConstructMarkdownTableRow(values.Select(v => v.Value).ToArray(), markdownLines);
             markdownLines.Add("");
             FileInfo logfile = TestLogs.Where(f => f.Name == "StringReverserTestLog.md").FirstOrDefault();
             using StreamWriter fileWriter = logfile.AppendText();
@@ -44,7 +44,7 @@ namespace Toolbox.Models
             return markdownLines;
 
         }
-        public void MarkdownTableHeader(string[] headerValues, List<string> markdownLines)
+        public void ConstructMarkdownTableHeader(string[] headerValues, List<string> markdownLines)
         {
             if (markdownLines == null)
             {
@@ -60,7 +60,7 @@ namespace Toolbox.Models
             markdownLines.Add(titleRowBuilder.ToString());
             markdownLines.Add(dividerRowBuilder.ToString());
         }
-        private void AddMarkdownTableData(string[] dataValues, List<string> markdownLines)
+        private void ConstructMarkdownTableRow(string[] dataValues, List<string> markdownLines)
         {
             StringBuilder sb = new StringBuilder("| ");
             foreach (string item in dataValues)
